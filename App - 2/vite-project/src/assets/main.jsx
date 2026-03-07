@@ -1,6 +1,6 @@
 export default function Main() {
   return (
-    <>
+    <main>
       <h1>Fun Facts about react</h1>
       <ul className="facts-list">
         <li>Was first released in 2013</li>
@@ -9,7 +9,6 @@ export default function Main() {
         <li>Is maintained by Facebook</li>
         <li>Powers thousands of enterprise apps, including mobile apps</li>
       </ul>
-
-    </>
+    </main>
   );
 }
