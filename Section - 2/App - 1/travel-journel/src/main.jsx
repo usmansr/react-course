@@ -1,7 +1,8 @@
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import Contacts from "./contacts";
-
+import jokesData from "./jokesData.js";
+import Joke from "./Jokes.jsx";
 const root = createRoot(document.getElementById("root"));
 
 // Practice of dynamism in react
@@ -62,19 +63,35 @@ function Maps() {
     return <h1 key={turtle}>{turtle}</h1>;
   });
 
+  return <main>{turtleHeadings}</main>;
+}
+
+// Practicing on Jokes Data
+function Jokes() {
+  const jokeElement = jokesData.map((joke) => {
+    return (
+      <Joke
+        Setup={joke.Setup}
+        Punchline={joke.Punchline}
+      />
+    );
+  });
+
   return (
     <main>
-      {turtleHeadings}
+      {jokeElement}
     </main>
   );
 }
-
 
 root.render(
   <>
     <App />
     {/* <App_2 /> */}
     {/* <Contacts_Show /> */}
-    <Maps />
+    {/* <Maps /> */}
+    {/* <Jokes /> */}
   </>,
 );
+
+
