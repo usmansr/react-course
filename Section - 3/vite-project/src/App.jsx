@@ -62,13 +62,74 @@ function StatePractice_2() {
   );
 }
 
+function IsGoingOutState() {
+  const [isGoingOut, setIsGoingOut] = useState(true);
+
+  function changeMind() {
+    setIsGoingOut((prev) => !prev);
+  }
+
+  return (
+    <main>
+      <h1>Do I feel like going out?</h1>
+      <button
+        onClick={changeMind}
+        aria-label={`Current answer is : ${isGoingOut ? "Yes" : "No"}. Click to change `}
+      >
+        {isGoingOut ? "Yes" : "No"}
+      </button>
+    </main>
+  );
+}
+
+function ArrayUsage() {
+  /**
+   * Challenge: Convert the code below to use an array
+   * held in state instead of a local variable. Initialize
+   * the state array as an empty array
+   *
+   * Don't worry about fixing `addFavoriteThing` quite yet.
+   */
+  const [myFavoriteThings, setMyFavoriteThings] = useState([]);
+  const allFavoriteThings = [
+    "💦🌹",
+    "😺",
+    "💡🫖",
+    "🔥🧤",
+    "🟤🎁",
+    "🐴",
+    "🍎🥧",
+    "🚪🔔",
+    "🛷🔔",
+    "🥩🍝",
+  ];
+  const thingsElements = myFavoriteThings.map((thing) => (
+    <p key={thing}>{thing}</p>
+  ));
+
+  function addFavoriteThing() {
+    setMyFavoriteThings(prevFavThings => [...prevFavThings, allFavoriteThings[prevFavThings.length]])
+  }
+
+  return (
+    <main>
+      <button onClick={addFavoriteThing}>Add item</button>
+      <section aria-live="polite">
+        {thingsElements}
+      </section>
+    </main>
+  )
+}
+
 export default function App() {
   return (
     <>
       <Header />
       <Main />
       {/* <StatePractice /> */}
-      <StatePractice_2 />
+      {/*<StatePractice_2 />*/}
+      {/* <IsGoingOutState /> */}
+      <ArrayUsage />
     </>
   );
 }
