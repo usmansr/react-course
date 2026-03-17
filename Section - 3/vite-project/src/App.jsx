@@ -2,6 +2,10 @@ import Header from "./Header";
 import Main from "./Main2";
 import { useState } from "react";
 
+// import avatar from "./assets/user.png"
+// import starFilled from "./assets/star-filled"
+// import starEmpty from "./assets/star-empty.png"
+
 function StatePractice() {
   let [isImportant, setIsImportant] = useState("Yes");
   // console.log(isImportant);
@@ -108,17 +112,140 @@ function ArrayUsage() {
   ));
 
   function addFavoriteThing() {
-    setMyFavoriteThings(prevFavThings => [...prevFavThings, allFavoriteThings[prevFavThings.length]])
+    setMyFavoriteThings((prevFavThings) => [
+      ...prevFavThings,
+      allFavoriteThings[prevFavThings.length],
+    ]);
   }
 
   return (
     <main>
       <button onClick={addFavoriteThing}>Add item</button>
-      <section aria-live="polite">
-        {thingsElements}
-      </section>
+      <section aria-live="polite">{thingsElements}</section>
     </main>
-  )
+  );
+}
+
+function UseStatePractice() {
+  const [myAnimals, setMyAnimals] = useState([]);
+
+  const allAnimals = [
+    "🐶 Dog",
+    "🐱 Cat",
+    "🐰 Rabbit",
+    "🦊 Fox",
+    "🐼 Panda",
+    "🐨 Koala",
+  ];
+
+  function addAnimals() {
+    setMyAnimals((prevAnimals) => [
+      ...prevAnimals,
+      allAnimals[prevAnimals.length],
+    ]);
+  }
+
+  const animalElement = myAnimals.map((animal) => (
+    <li key={animal}>{animal}</li>
+  ));
+
+  return (
+    <main>
+      <button onClick={addAnimals}>Add Animal</button>
+      <ul>{animalElement}</ul>
+    </main>
+  );
+}
+
+function App_Employee() {
+  const [contact, setContact] = React.useState({
+    firstName: "John",
+    lastName: "Doe",
+    phone: "+1 (212) 555-1212",
+    email: "itsmyrealname@example.com",
+    isFavorite: true,
+  });
+
+  let starIcon = contact.isFavorite ? starFilled : starEmpty;
+
+  function toggleFavorite() {
+    setContact((prevContact) => {
+      return {
+        isFavorite: !prevContact.isFavorite,
+      };
+    });
+  }
+
+  return (
+    <main>
+      <article className="card">
+        <img
+          src={avatar}
+          className="avatar"
+          alt="User profile picture of John Doe"
+        />
+        <div className="info">
+          <button
+            onClick={toggleFavorite}
+            aria-pressed={contact.isFavorite}
+            aria-label={
+              contact.isFavorite ? "Remove from favorites" : "Add to favorites"
+            }
+            className="favorite-button"
+          >
+            <img
+              src={starIcon}
+              alt={contact.isFavorite ? "filled star icon" : "empty star icon"}
+              className="favorite"
+            />
+          </button>
+          <h2 className="name">
+            {contact.firstName} {contact.lastName}
+          </h2>
+          <p className="contact">{contact.phone}</p>
+          <p className="contact">{contact.email}</p>
+        </div>
+      </article>
+    </main>
+  );
+}
+
+function App_Form() {
+  // function handleSubmit(event) {
+  //   event.preventDefault();
+  //   const formEl = event.currentTarget; 
+  //   const formData = new FormData(formEl);
+  //   console.log(formData);
+  //   formEl.reset();
+  // }
+  
+  function signUp(formData) {
+    const email = formData.get("email");
+    console.log(email);
+  }
+
+
+  return (
+    <section>
+      <h1>Signup form</h1>
+      <form action={signUp}>
+        <label htmlFor="email">Email:</label>
+        <input
+          id="email"
+          type="email"
+          name="email"
+          placeholder="joe@schmoe.com"
+        />
+        <br />
+
+        <label htmlFor="password">Password:</label>
+        <input id="password" type="password" name="password" />
+        <br />
+
+        <button>Submit</button>
+      </form>
+    </section>
+  );
 }
 
 export default function App() {
@@ -129,7 +256,10 @@ export default function App() {
       {/* <StatePractice /> */}
       {/*<StatePractice_2 />*/}
       {/* <IsGoingOutState /> */}
-      <ArrayUsage />
+      {/* <ArrayUsage /> */}
+      {/* <UseStatePractice /> */}
+      {/* <App_Employee /> */}
+      <App_Form />
     </>
   );
 }
