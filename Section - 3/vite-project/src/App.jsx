@@ -1,6 +1,8 @@
 import Header from "./Header";
 import Main from "./Main2";
-import { useState } from "react";
+import { use, useState } from "react";
+import padsData from "./pads";
+import Pad from "./Pad";
 
 // import avatar from "./assets/user.png"
 // import starFilled from "./assets/star-filled"
@@ -372,9 +374,67 @@ function App_Conditional_Rendering() {
     </div>
   );
 }
-export default function App() {
+
+// function Sound_Pads() {
+//   const [pads, setPads] = useState(padsData);
+
+//   function toggle(id) {
+//     setPads(prevPads => prevPads.map(pad => {
+//         // If this is the pad we clicked, flip its "on" value
+//         // Otherwise, return the pad as it was
+//         return pad.id === id ? { ...pad, on: !pad.on } : pad
+//     }))
+//   }
+
+//   const buttonElements = pads.map((pad) => (
+//     <button
+//       key={pad.id}
+//       className={pad.on ? "pad-button on" : "pad-button"}
+//       style={{ backgroundColor: pad.color }}
+//       onClick={() => toggle(pad.id)}
+//     ></button>
+//   ));
+
+//   return (
+//     <main>
+//       <div className="pad-container">{buttonElements}</div>
+//     </main>
+//   );
+// }
+
+function Sound_Pads() {
+  const [pads, setPads] = useState(padsData);
+
+  function toggle(id) {
+    setPads((prePads) =>
+      prePads.map((item) => {
+        return item.id === id ? { ...item, on: !item.on } : item;
+      }),
+    );
+  }
+
+  const buttonElements = pads.map((pad) => {
+    return (
+      <Pad
+        toggle={toggle}
+        id={pad.id}
+        key={pad.id}
+        color={pad.color}
+        on={pad.on}
+      />
+    );
+  });
+
   return (
-    <>
+    <main>
+      <div className="pad-container">{buttonElements}</div>
+    </main>
+  );
+}
+
+export default function App({ darkMode }) {
+  return (
+    <div>
       <Header />
       <Main />
       {/* <StatePractice /> */}
@@ -386,6 +446,7 @@ export default function App() {
       {/* <App_Form /> */}
       {/* <HtmlElements /> */}
       {/* <App_Conditional_Rendering /> */}
-    </>
+      {/* <Sound_Pads /> */}
+    </div>
   );
 }
