@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Main() {
   const [meme, setMeme] = useState({
@@ -7,14 +7,21 @@ export default function Main() {
     imageUrl: "http://i.imgflip.com/1bij.jpg",
   });
 
+  const [allMemes, setAllMemes] = useState([]);
+
+  useEffect(() => {
+    fetch("https://api.imgflip.com/get_memes")
+      .then(res => res.json())
+      .then(data => setAllMemes(data.data.memes))
+  });
+
   function handleChange(event) {
     const { value, name } = event.currentTarget;
     // console.log(value);
-    setMeme(prevVal => ({
-        ...prevVal,
-        [name]: value
-    }))   
-
+    setMeme((prevVal) => ({
+      ...prevVal,
+      [name]: value,
+    }));
   }
 
   return (
@@ -22,24 +29,24 @@ export default function Main() {
       <div className="form">
         <label>
           Top Text
-          <input 
-            type="text" 
-            placeholder="One does not simply" 
-            name="topText" 
+          <input
+            type="text"
+            placeholder="One does not simply"
+            name="topText"
             onChange={handleChange}
             value={meme.topText}
-        />
+          />
         </label>
 
         <label>
           Bottom Text
-          <input 
-            type="text" 
-            placeholder="Walk into Mordor" 
-            name="bottomText" 
+          <input
+            type="text"
+            placeholder="Walk into Mordor"
+            name="bottomText"
             onChange={handleChange}
             value={meme.bottomText}
-        />
+          />
         </label>
         <button>Get a new meme image 🖼</button>
       </div>
